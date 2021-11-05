@@ -5,6 +5,9 @@
 	> gc1 <- read.csv("Learning R/gc1.csv")
 	> head(gc1) #displays first 5 entries
 	> class(gc1) #checks the data structure - must be data frame. If not start over!!!!
+	
+#plot a specific replicate in y scale in log 
+	> plot(gc1[,"ï..Time"], log(gc1[,"R2"]), main="OD versus Time", xlab="hours",ylab="log(OD600)")
 
 # analysis of single replicate
 #install growthcurver pakage 
@@ -30,9 +33,17 @@
 #plot the fitted line over raw data points 
 	> plot(gc_fit)
 	
+# making plot beautiful aka labelling x and y axis 
+	> plot(gc_fit, main = "growth curve", xlab="hours", ylab="log(OD600)")
+
+	
 # growth curve fitting of multiple replicates or entire plate
 	> gc_plate <- SummarizeGrowthByPlate(gc1)
 	> gc_plate
+	
+# code adapted from https://cran.r-project.org/web/packages/growthcurver/vignettes/Growthcurver-vignette.html
+# code adapted from http://www.pangloss.com/wiki/R_GrowthCurve?action=AttachFile&do=get&target=R_growth_curve_example.pdf
+
 	
 	
 	
