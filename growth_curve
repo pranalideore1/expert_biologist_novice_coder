@@ -40,6 +40,13 @@
 # growth curve fitting of multiple replicates or entire plate
 	> gc_plate <- SummarizeGrowthByPlate(gc1)
 	> gc_plate
+
+# check class of output - must be data frame	
+> class(gc_plate)
+[1] "data.frame"
+
+# export output into .csv file 
+> write.csv(gc_plate,"marinobacter_growth_rate.csv")
 	
 # code adapted from https://cran.r-project.org/web/packages/growthcurver/vignettes/Growthcurver-vignette.html
 # code adapted from http://www.pangloss.com/wiki/R_GrowthCurve?action=AttachFile&do=get&target=R_growth_curve_example.pdf
