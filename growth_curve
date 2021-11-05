@@ -1,0 +1,42 @@
+# preparing csv file for import. 
+# Open data in excel. Click file -> save as -> file_name UTF-8 (comma delimited)(*csv)
+# data arrangement first coloum is time and coloum 2....n are replicates/samples
+# Importing csv file
+	> gc1 <- read.csv("Learning R/gc1.csv")
+	> head(gc1) #displays first 5 entries
+	> class(gc1) #checks the data structure - must be data frame. If not start over!!!!
+
+# analysis of single replicate
+#install growthcurver pakage 
+	> library(growthcurver)
+
+# data fitting (gc1 is imported data frame,ï..Time is first coloum, R1 is replicated 1 in coloum 2) 
+	> gc_fit <- SummarizeGrowth(gc1$ï..Time, gc1$R1)
+	
+# to obtain fit paramters
+	> gc_fit 
+	
+# Fit data to K / (1 + ((K - N0) / N0) * exp(-r * t)): 
+# K	N0	r (r is growth rate)
+# val:	1.991	0.003	1.892
+# Residual standard error: 0.3751307 on 65 degrees of freedom
+
+# additional fit parameters
+	>str(gc_fit$vals)
+	
+# how to disply only growth rate
+	> str(gc_fit$vals$r)
+	
+#plot the fitted line over raw data points 
+	> plot(gc_fit)
+	
+# growth curve fitting of multiple replicates or entire plate
+	> gc_plate <- SummarizeGrowthByPlate(gc1)
+	> gc_plate
+	
+	
+	
+	
+	
+
+	
