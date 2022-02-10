@@ -1,0 +1,34 @@
+#reference for this code - https://rpubs.com/angelov/growthcurver
+#read file in R using read.csv function. Use fileEncoding = "UTF-8-BOM" to get read of junk text e.g. ï..
+> df <- read.csv("C:/Users/PDEORE/OneDrive - The University of Melbourne/Uni_Mel_main_drive/Data_UoM/Bacteria_growth_curves/2022_1_28_biolog_marinobacter/Marinobacter_biology_590nm_sorted_data.csv", header = TRUE, fileEncoding = "UTF-8-BOM")
+> head(df)
+
+#plot first column X = time vs. sample in second coloum y = Water_R1 
+> ggplot(df, aes(x = time, y = Water_R1)) + geom_point(alpha=0.7)
+
+#trucating x axis (half of the experiment duration)
+df <- df %>% filter(time<=24)
+
+#fitting of data from first sample e.g. Water_R1
+> model.wt <- SummarizeGrowth(df$time, df$Water_R1)
+
+# only for one sample - list of values associted with this model e.g. r is growth rate
+> model.wt$vals
+
+#Only for one sample - list predicted OD values from model fitted
+> predict(model.wt$model)
+
+#growth curve analysis for entire file (multiple samples)
+>growth.values.plate <- SummarizeGrowthByPlate(df)
+
+#export values of all samples into a csv file 
+write.csv(growth.values.plate, "marinobacter_fit_val_5.csv", row.names = TRUE)
+
+#only for one sample - plot model fit onto data points
+> plot(model.wt)
+
+#plot same graph using ggplot - just looks better 
+> p1 <- ggplot(df, aes(x=time,y=Water_R1)) + geom_point(alpha=0.5) + theme_bw()
+> p1
+
+
